@@ -1,0 +1,23 @@
+{% extends "Book/layout.html" %}
+
+{% block body %}
+<h2>HTML Forms</h2>
+
+<form action="{% url 'newbook' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+  <label for="fname">Book Name:</label><br>
+  <input type="text" id="fname" name="bookname" ><br>
+
+  <label for="lname">Author name:</label><br>
+  <input type="text" id="lname" name="authorname" ><br><br>
+
+  <label for="myfile">book file:</label><br>
+  <input type="file" id="lname" name="myfile"><br><br>
+
+  <input type="submit" value="Submit">
+
+</form> 
+
+
+{% endblock %}

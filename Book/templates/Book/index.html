@@ -1,0 +1,117 @@
+{% extends "Book/layout.html" %}
+
+{% block body %}
+<style>
+    * {box-sizing: border-box;}
+    
+    body { 
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    .header {
+      overflow: hidden;
+      background-color: #67326e;
+      padding: 20px 10px;
+    }
+    
+    .header a {
+      float: left;
+      color: black;
+      text-align: center;
+      padding: 12px;
+      text-decoration: none;
+      font-size: 18px; 
+      line-height: 25px;
+      border-radius: 4px;
+    }
+    
+    .header a.logo {
+      font-size: 25px;
+      font-weight: bold;
+    }
+    
+    .header a:hover {
+      background-color: rgb(64, 215, 51);
+      color: black;
+    }
+    
+    .header a.active {
+      background-color: rgb(135, 184, 56);
+      color: white;
+    }
+    
+    .header-right {
+      float: right;
+    }
+    
+    @media screen and (max-width: 500px) {
+      .header a {
+        float: none;
+        display: block;
+        text-align: left;
+      }
+      
+      .header-right {
+        float: none;
+      }
+     
+    }
+    
+    table, th, td {
+     border:1px solid black;
+    }
+    </style>
+
+
+{% if user.is_authenticated %}
+
+  <div class="header">
+    <a href="#default" > Signed in as <strong> {{ request.user.username }}</strong></a>
+    <div class="header-right">
+      <a class="active" href="#home">Home</a>
+      <a  class="active" href="{% url 'logout_view' %}">Log out</a>
+    </div>
+  </div>
+  <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:25%">
+    <h3 class="w3-bar-item">Menu</h3>
+    <a href="{% url 'newbook' %}" class="w3-bar-item w3-button">Create Book</a>
+   
+  </div>
+  
+  <div style="margin-left:35%">
+  
+    
+    
+    <table style="width:100%">
+        <tr>
+            <th>Book Name</th>
+            <th>Author Name</th>
+            <th>Person 3</th>
+        </tr>
+        {% for books in book %}
+        <tr>
+      <td>{{books.book_name}}</td>
+      <td>{{books.author_name}}</td>
+      <td><a class="nav-link" href="{% url 'deletebook' books.id %}">Delete</a>
+      </td>
+      </tr>
+    {% endfor %}
+    
+  </table>
+      
+      
+    
+  
+  </div>
+{% else %}
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'register' %}">Register</a>
+</li>
+{% endif %}
+
+
+{% endblock %}
